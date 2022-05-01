@@ -11,6 +11,7 @@ public class Certificacao {
 	@GeneratedValue(generator = "certificacao", strategy = GenerationType.SEQUENCE)
 	private Long id;
 
+	@Column(nullable = false, length = 20)
 	private String nome;
 
 	@ManyToOne

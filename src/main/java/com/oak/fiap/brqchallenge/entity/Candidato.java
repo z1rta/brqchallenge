@@ -2,10 +2,16 @@ package com.oak.fiap.brqchallenge.entity;
 
 import javax.persistence.*;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.br.CPF;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 @Entity
 @Table(name = "T_CANDIDATO")
 public class Candidato {
@@ -15,12 +21,20 @@ public class Candidato {
 	@GeneratedValue(generator = "candidato", strategy = GenerationType.SEQUENCE)
 	private Long id;
 
+	@Column(nullable = false, length = 100)
 	private String nome;
+	@Email
+	@Column(nullable = false, length = 30)
 	private String email;
+	@Column(nullable = false, length = 11)
 	private String telefone;
+	@Column(unique = true, nullable = false, length = 11)
+	@CPF
 	private String cpf;
+	@Column(nullable = false)
 	private char genero;
-	private Date dtNascimento;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dtNascimento;
 
 	@ManyToMany
 	@JoinTable(name = "candidato_skill", joinColumns = @JoinColumn(name = "candidato_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
@@ -32,7 +46,7 @@ public class Candidato {
 	public Candidato() {
 	}
 	
-	public Candidato(Long id, String nome, String email, String telefone, String cpf, char genero, Date dtNascimento,
+	public Candidato(Long id, String nome, String email, String telefone, String cpf, char genero, LocalDate dtNascimento,
 			List<Skill> skills, List<Certificacao> certificacoes) {
 		super();
 		this.id = id;
@@ -94,11 +108,11 @@ public class Candidato {
 		this.genero = genero;
 	}
 
-	public Date getDtNascimento() {
+	public LocalDate getDtNascimento() {
 		return dtNascimento;
 	}
 
-	public void setDtNascimento(Date dtNascimento) {
+	public void setDtNascimento(LocalDate dtNascimento) {
 		this.dtNascimento = dtNascimento;
 	}
 
