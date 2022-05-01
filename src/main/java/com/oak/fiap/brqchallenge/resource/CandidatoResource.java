@@ -46,12 +46,17 @@ public class CandidatoResource {
     
     @GetMapping("/findBySkill/{skill}")
     public ResponseEntity<List<Candidato>> findBySkill(@PathVariable("skill") String skill) {
-        return ResponseEntity.ok().body(repository.findAllBySkillsContainingIgnoreCase(skill));
+        return ResponseEntity.ok().body(repository.findAllBySkillsNomeContainingIgnoreCase(skill));
     }
-    
+
     @GetMapping("/findByCertificacao/{certificacao}")
     public ResponseEntity<List<Candidato>> findByCertificacao(@PathVariable("certificacao") String certificacao) {
-        return ResponseEntity.ok().body(repository.findAllByCertificacoesContainingIgnoreCase(certificacao));
+        return ResponseEntity.ok().body(repository.findAllByCertificacoesNomeContainingIgnoreCase(certificacao));
+    }
+
+    @GetMapping("/findBySkillCertificacao/{skill}")
+    public ResponseEntity<List<Candidato>> findBySkillOrderByCertificacao(@PathVariable("skill") String skill) {
+        return ResponseEntity.ok().body(repository.findAllBySkillsNomeContainingIgnoreCaseOrderByCertificacoes(skill));
     }
 
 }

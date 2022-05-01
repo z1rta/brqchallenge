@@ -28,12 +28,12 @@ public class CertificacaoResource {
         return ResponseEntity.ok().body(repository.findAll());
     }
 
-    @GetMapping("/findBy/{nome}")
+    @GetMapping("/findByNome/{nome}")
     public ResponseEntity<List<Certificacao>> findByNome(@PathVariable("nome") String nome){
         return ResponseEntity.ok().body(repository.findAllByNomeContainingIgnoreCase(nome));
     }
     
-    @GetMapping("/findBy/{skill}")
+    @GetMapping("/findBySkill/{skill}")
     public ResponseEntity<List<Certificacao>> findBySkill(@PathVariable("skill") String skill){
         return ResponseEntity.ok().body(repository.findAllBySkillNomeContainingIgnoreCase(skill));
     }
